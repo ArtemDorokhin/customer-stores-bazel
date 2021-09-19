@@ -31,6 +31,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -62,10 +63,11 @@ public class StoreRepositoryIntegrationTests {
 
 		store = repository.save(store);
 
-		Page<Store> stores = repository.findByAddressLocationNear(location, new Distance(1.0, Metrics.KILOMETERS),
-				new PageRequest(0, 10));
+//		Page<Store> stores = repository.findByAddressLocationNear(location, new Distance(1.0, Metrics.KILOMETERS),
+//				PageRequest.of(0, 10));
 
-		assertThat(stores.getContent(), hasSize(1));
-		assertThat(stores.getContent(), hasItem(store));
+//		assertThat(stores.getContent(), hasSize(1));
+//		assertThat(stores.getContent(), hasItem(store));
+		assertEquals(true, false);
 	}
 }

@@ -25,13 +25,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * 
  * @author Oliver Gierke
  */
-@Data
 @Document
 public class Store {
 
-	private final @Id String id;
-	private final String name;
-	private final Address address;
+	private  @Id String id;
+	private  String name;
+	private  Address address;
 
 	public Store(String name, Address address) {
 
@@ -45,5 +44,29 @@ public class Store {
 		this.id = null;
 		this.name = null;
 		this.address = null;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Address getAddress() {
+		return address;
 	}
 }

@@ -1,0 +1,33 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+RULES_JVM_EXTERNAL_TAG = "4.0"
+RULES_JVM_EXTERNAL_SHA = "31701ad93dbfe544d597dbe62c9a1fdd76d81d8a9150c2bf1ecf928ecdf97169"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "org.springframework.boot:spring-boot-starter-webflux:2.4.1",
+        "org.springframework.boot:spring-boot-starter-reactor-netty:2.4.1",
+        "org.springframework.cloud:spring-cloud-starter-gateway:2.2.8.RELEASE",
+        "org.springframework.cloud:spring-cloud-commons:2.2.8.RELEASE",
+        "org.springframework.boot:spring-boot-autoconfigure:2.4.1",
+        "org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.1",
+        "org.springframework.boot:spring-boot:2.4.1",
+        "org.springframework:spring-context:5.3.7",
+
+        "io.projectreactor.netty:reactor-netty:0.9.15.RELEASE",
+    ],
+    fetch_sources = False,
+    repositories = [
+        "https://jcenter.bintray.com",
+    ],
+)
+

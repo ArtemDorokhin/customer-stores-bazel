@@ -1,0 +1,38 @@
+java_library(
+    name = "integration",
+    srcs = glob(["*.java"]),
+    visibility = ["//src/test:__subpackages__", "//src/main:__subpackages__"],
+    deps = [
+        "//thirdparty/projectlombok:lombok_edge",
+        "//src/main/java/example/customers:lib",
+        "@maven//:org_springframework_boot_spring_boot",
+        "@maven//:org_springframework_boot_spring_boot_autoconfigure",
+        "@maven//:org_springframework_spring_context",
+        "@maven//:org_springframework_boot_spring_boot_starter_data_rest",
+        "@maven//:org_springframework_security_spring_security_rsa",
+        "@maven//:com_jayway_jsonpath_json_path",
+        "@maven//:org_springframework_hateoas_spring_hateoas",
+        "@maven//:org_springframework_boot_spring_boot_starter_data_jpa",
+        "@maven//:org_hsqldb_hsqldb",
+        "@maven//:mysql_mysql_connector_java",
+
+    ],
+)
+
+java_binary(
+    name = "lombok-bin",
+    runtime_deps = ["@lombok_edge//jar"],
+    main_class = "lombok.launch.Main"
+)
+
+genrule(
+    name = "srcs-delomboked",
+    srcs = ["CustomerResourceProcessor.java",
+            "StoreIntegration.java"
+            ],
+    outs = ["delomboked-src/CustomerResourceProcessor.java",
+            "delomboked-src/StoreIntegration.java"
+            ],
+    tools = [":lombok-bin"],
+    cmd = "$(location :lombok-bin) delombok -d $(@D) $<"
+)

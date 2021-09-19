@@ -1,0 +1,95 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive", "http_jar")
+
+RULES_JVM_EXTERNAL_TAG = "4.0"
+RULES_JVM_EXTERNAL_SHA = "31701ad93dbfe544d597dbe62c9a1fdd76d81d8a9150c2bf1ecf928ecdf97169"
+
+http_archive(
+    name = "rules_jvm_external",
+    strip_prefix = "rules_jvm_external-%s" % RULES_JVM_EXTERNAL_TAG,
+    sha256 = RULES_JVM_EXTERNAL_SHA,
+    url = "https://github.com/bazelbuild/rules_jvm_external/archive/%s.zip" % RULES_JVM_EXTERNAL_TAG,
+)
+
+http_jar(
+    name = "lombok_edge",
+    urls = ["https://projectlombok.org/lombok-edge.jar"],
+    sha256 = "9c39a3de13fbd9a39e98c35b8ba279fefcd884450e256e247d974fdc6833fdcb"
+)
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    artifacts = [
+        "org.springframework.boot:spring-boot-autoconfigure:2.1.3.RELEASE",
+        "org.springframework.boot:spring-boot-test-autoconfigure:2.1.3.RELEASE",
+        "org.springframework.boot:spring-boot-test:2.1.3.RELEASE",
+        "org.springframework.boot:spring-boot:2.1.3.RELEASE",
+        "org.springframework:spring-beans:5.1.5.RELEASE",
+        "org.springframework:spring-context:5.1.5.RELEASE",
+        "org.springframework:spring-core:5.1.5.RELEASE",
+        "org.springframework:spring-test:5.1.5.RELEASE",
+        "org.springframework:spring-web:5.1.5.RELEASE",
+        "org.springframework.cloud:spring-cloud-connectors-core:2.0.7.RELEASE",
+        "org.springframework.cloud:spring-cloud-commons:3.0.3",
+        "org.slf4j:slf4j-api:2.0.0-alpha1",
+
+        "org.springframework.boot:spring-boot-starter-data-rest:2.5.4",
+        "org.springframework.data:spring-data-rest-webmvc:3.5.4",
+        "org.springframework.data:spring-data-rest-core:3.5.4",
+        "org.springframework.data:spring-data-commons:2.5.4",
+        "org.hsqldb:hsqldb:2.6.0",
+        "org.springframework.boot:spring-boot-starter-data-mongodb:2.5.4",
+        "org.springframework.data:spring-data-mongodb:3.2.4",
+        "org.springframework.boot:spring-boot-starter-data-jpa:2.5.4",
+        "jakarta.persistence:jakarta.persistence-api:3.0.0",
+        "jakarta.annotation:jakarta.annotation-api:1.3.5",
+        "jakarta.xml.bind:jakarta.xml.bind-api:3.0.1",
+        "javax.xml.bind:jaxb-api:2.3.1",
+        "org.glassfish.jaxb:jaxb-runtime:3.0.2",
+        "javax.persistence:javax.persistence-api:2.2",
+        "org.springframework.cloud:spring-cloud-starter-openfeign:3.0.3",
+        "org.springframework.cloud:spring-cloud-openfeign-core:3.0.3",
+        "org.hamcrest:hamcrest-library:2.2",
+        "org.hamcrest:hamcrest:2.2",
+        "org.springframework.boot:spring-boot-starter-batch:2.5.4",
+        "org.springframework.batch:spring-batch-infrastructure:4.3.3",
+        "org.springframework.boot:spring-boot-starter-cloud-connectors:2.2.13.RELEASE",
+        "org.springframework.boot:spring-boot-starter-data-rest:2.5.4",
+        "org.springframework.data:spring-data-rest-core:3.5.4",
+        "org.springframework.data:spring-data-commons:2.5.4",
+        "org.springframework.security:spring-security-rsa:1.0.10.RELEASE",
+        "com.jayway.jsonpath:json-path:2.6.0",
+        "org.springframework.hateoas:spring-hateoas:1.3.3",
+        "org.springframework.boot:spring-boot-starter-data-jpa:2.5.4",
+        "jakarta.persistence:jakarta.persistence-api:3.0.0",
+        "javax.persistence:javax.persistence-api:2.2",
+
+        "org.springframework.cloud:spring-cloud-starter-bootstrap:3.0.3",
+        "org.springframework.cloud:spring-cloud-starter-netflix-hystrix:2.2.8.RELEASE",
+        "org.hsqldb:hsqldb:2.6.0",
+        "mysql:mysql-connector-java:8.0.26",
+        "org.springframework.cloud:spring-cloud-starter-gateway:2.2.8.RELEASE",
+        "org.springframework.boot:spring-boot-starter-webflux:2.4.1",
+        "org.springframework.boot:spring-boot-starter-reactor-netty:2.4.1",
+        "io.projectreactor.netty:reactor-netty:0.9.15.RELEASE",
+
+        "org.springframework.cloud:spring-cloud-commons:2.2.8.RELEASE",
+        "org.springframework.boot:spring-boot-autoconfigure:2.5.0",
+        "org.springframework.boot:spring-boot:2.5.0",
+        "org.springframework:spring-context:5.3.7",
+        "org.springframework.boot:spring-boot-starter-test:2.5.4",
+        "org.springframework:spring-test:5.3.9",
+
+        "javax.xml.bind:jaxb-api:2.3.1",
+        "org.glassfish.jaxb:jaxb-runtime:3.0.2",
+    ],
+    fetch_sources = False,
+    repositories = [
+        "https://jcenter.bintray.com",
+    ],
+)
+
+
+local_repository(name = "stores-ui", path = "customers-stores-ui",)
+local_repository(name = "microservices-customers", path = "rest-microservices-customers",)
+local_repository(name = "microservices-store", path = "rest-microservices-store",)

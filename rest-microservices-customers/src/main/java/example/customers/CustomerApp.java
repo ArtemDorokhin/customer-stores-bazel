@@ -20,7 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
-import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
+//import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapter;
 
 /**
  * @author Oliver Gierke
@@ -28,15 +28,15 @@ import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurerAdapt
 @SpringBootApplication
 @EnableCircuitBreaker
 @EnableDiscoveryClient
-public class CustomerApp extends RepositoryRestConfigurerAdapter {
+public class CustomerApp /*extends RepositoryRestConfigurerAdapter*/ {
 
-	@Override
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
 		config.exposeIdsFor(Customer.class);
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerApp.class, args);
+		System.out.println("Started");
 	}
 
 }
